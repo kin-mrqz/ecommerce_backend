@@ -1,5 +1,7 @@
 package com.kin.ecommerce.backend.api.controller.auth;
 
+import com.kin.ecommerce.backend.api.model.LoginBody;
+import com.kin.ecommerce.backend.api.model.LoginResponse;
 import com.kin.ecommerce.backend.api.model.RegistrationBody;
 import com.kin.ecommerce.backend.exception.UserAlreadyExistsException;
 import com.kin.ecommerce.backend.service.UserService;
@@ -29,4 +31,17 @@ public class AuthenticationController {
         }
     }
 
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> loginUser(@Valid @RequestBody LoginBody loginBody) {
+        String jwt = userService.loginUser(loginBody);
+        if (jwt == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        else {
+            LoginResponse response = new LoginResponse();
+            response.setJwt(jwt);
+            return ResponseEntity.ok(response);
+        }
+    }
 }

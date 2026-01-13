@@ -1,4 +1,4 @@
-package com.kin.ecommerce.backend.api.model.dao;
+package com.kin.ecommerce.backend.model.dao;
 
 import com.kin.ecommerce.backend.model.LocalUser;
 import org.springframework.data.repository.CrudRepository;
