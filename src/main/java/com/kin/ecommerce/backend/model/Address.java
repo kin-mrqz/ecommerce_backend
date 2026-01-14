@@ -1,5 +1,6 @@
 package com.kin.ecommerce.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -26,6 +27,7 @@ public class Address {
         return country;
     }
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private LocalUser user;
