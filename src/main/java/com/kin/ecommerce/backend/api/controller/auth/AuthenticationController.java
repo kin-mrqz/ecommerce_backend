@@ -4,10 +4,13 @@ import com.kin.ecommerce.backend.api.model.LoginBody;
 import com.kin.ecommerce.backend.api.model.LoginResponse;
 import com.kin.ecommerce.backend.api.model.RegistrationBody;
 import com.kin.ecommerce.backend.exception.UserAlreadyExistsException;
+import com.kin.ecommerce.backend.model.LocalUser;
 import com.kin.ecommerce.backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -43,5 +46,10 @@ public class AuthenticationController {
             response.setJwt(jwt);
             return ResponseEntity.ok(response);
         }
+    }
+
+    @GetMapping("/me")
+    public LocalUser getLoggedInUserProfile(@AuthenticationPrincipal LocalUser user) {
+        return user;
     }
 }
